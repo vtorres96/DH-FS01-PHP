@@ -1,0 +1,15 @@
+{
+    "usuarios": [
+        {
+            "nome": "xablau",
+            "email": "xablau@gmail.com",
+            "senha": "123456"
+        },
+        {
+            "nome": "Wesley",
+            "sobrenome": "Safadao",
+            "email": "wesley@digitalhouse.com",
+            "senha": "123456"
+        }
+    ]
+}
