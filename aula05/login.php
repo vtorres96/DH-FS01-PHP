@@ -11,11 +11,15 @@
 
         // Percorrendo o array que contem a lista de usuarios
        foreach ($arrayUsuarios["usuarios"] as $usuario) {
-           echo "Email: " . $usuario["email"] . "<br>";
-           echo "Senha: " . $usuario["senha"] . "<br>";
-
-           echo "<br>";
-       }
+           
+           if($email == $usuario["email"]){
+                if(password_verify($senha, $usuario["senha"])){
+                    echo "usuário autenticado";
+                    break;
+                }
+           }
+           
+        }
        die;
     }
 ?>

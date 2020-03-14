@@ -11,6 +11,12 @@
             "sobrenome": "Torres",
             "email": "xdsad@digitalhouse.com",
             "senha": ".kdjnrRqvoR1TczYjH."
+        },
+        {
+            "nome": "Testando",
+            "sobrenome": "testando 123",
+            "email": "testando@gmail.com",
+            "senha": "$2y$10$gj21BbeclnDrz4eFAIcFM.TEhp5xmgrGM\/dyF\/zQJQtyJc2m34Mq."
         }
     ]
 }
