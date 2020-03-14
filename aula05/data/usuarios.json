@@ -1,0 +1,16 @@
+{
+    "usuarios": [
+        {
+            "nome": "Victor",
+            "sobrenome": "Torres",
+            "email": "vtorres@digitalhouse.com",
+            "senha": "$2y$10$vpssTpNfx8LBe9XNWd\/yne2vVhkSwDUc\/o.kdjnrRqvoR1TczYjH."
+        },
+        {
+            "nome": "Victor",
+            "sobrenome": "Torres",
+            "email": "xdsad@digitalhouse.com",
+            "senha": ".kdjnrRqvoR1TczYjH."
+        }
+    ]
+}
