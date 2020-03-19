@@ -1,0 +1,39 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "nome": "Victor",
+            "sobrenome": "Torres",
+            "email": "vtorres@digitalhouse.com",
+            "senha": "$2y$10$vpssTpNfx8LBe9XNWd\/yne2vVhkSwDUc\/o.kdjnrRqvoR1TczYjH."
+        },
+        {
+            "id": 2,
+            "nome": "Victorino",
+            "sobrenome": "Torresminho",
+            "email": "vtorrinhos@digitalhouse.com",
+            "senha": "$2y$10$KpngCAKGI0hlJTDe3.MGg.XZYXLwYrnZAG0ox788q\/WCTaiiYCSa2"
+        },
+        {
+            "id": 3,
+            "nome": "Testando",
+            "sobrenome": "testando 123",
+            "email": "testando@gmail.com",
+            "senha": "$2y$10$gj21BbeclnDrz4eFAIcFM.TEhp5xmgrGM\/dyF\/zQJQtyJc2m34Mq."
+        },
+        {
+            "id": 4,
+            "nome": "Novo Usu\u00e1rio",
+            "sobrenome": "Testando",
+            "email": "testando@gmail.com",
+            "senha": "$2y$10$d6KK7uFIBrYX6IpP2vSffewnJ5wUfTbvEhI9acbfweGRDVAlly.He"
+        },
+        {
+            "id": 5,
+            "nome": "novo",
+            "sobrenome": "usuario",
+            "email": "new@gmail.com",
+            "senha": "$2y$10$THFagRAMz1ACXSzM2\/7f.uS2Iv.bF6cU.VVS1OLDpK1uPKj3rCPVu"
+        }
+    ]
+}
