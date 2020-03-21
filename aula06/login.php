@@ -15,12 +15,13 @@
        foreach ($arrayUsuarios["usuarios"] as $usuario) {
            
            if($email == $usuario["email"]){
-                if(password_verify($senha, $usuario["senha"])){
+               if(password_verify($senha, $usuario["senha"])){
 
                     $logado = true;
 
                     // iniciando sessao caso usuario tenha informado usuario e senha corretos
                     session_start();
+                    $_SESSION["logado"] = $logado;
                     $_SESSION["id"] = $usuario["id"];
                     $_SESSION["nome"] = $usuario["nome"];
                     

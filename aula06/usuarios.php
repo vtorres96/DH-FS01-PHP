@@ -1,4 +1,12 @@
 <?php
+
+    session_start();
+
+    // verificando sessao para exibir a pagina apenas aos usuarios logados
+    if(!isset($_SESSION["logado"])){
+        header("Location: login.php");
+    }
+
     // obtendo conteudo do arquivo usuarios.json
     $usuarios = file_get_contents('./data/usuarios.json');
 
