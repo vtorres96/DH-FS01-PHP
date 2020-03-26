@@ -57,8 +57,10 @@
             
         }
 
+        // transformando o conteudo em uma string json
         $jsonUsuarios = json_encode($arrayUsuarios);
 
+        // escrevendo conteudo no arquivo usuarios.json
         $alterou = file_put_contents('./data/usuarios.json', $jsonUsuarios);
         
     }
