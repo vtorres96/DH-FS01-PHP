@@ -7,6 +7,35 @@
         header("Location: login.php");
     }
 
+    // Excluindo usuario especifico
+    if (isset($_GET) && $_GET && $_GET["id"]) {
+
+        // recebendo as informacoes enviadas atraves do formulario 
+        $id = $_GET["id"];
+
+        // obtendo conteudo do arquivo usuarios.json
+        $usuarios = file_get_contents('./data/usuarios.json');
+
+        // transformando o conteudo do arquivo usuarios.json em um array
+        $arrayUsuarios = json_decode($usuarios, true);
+    
+        // Percorrendo o array que contem a lista de usuarios
+        foreach ($arrayUsuarios["usuarios"] as $chave => $usuario) {
+
+            // verificando se encontramos o usuario apra fazer as alteracoes
+            if($usuario["id"] == $id){
+                unset($arrayUsuarios["usuarios"][$chave]);
+            }
+        }
+
+        // transformando o conteudo em uma string json
+        $jsonUsuarios = json_encode($arrayUsuarios);
+
+        // escrevendo conteudo no arquivo usuarios.json
+        $excluiu = file_put_contents('./data/usuarios.json', $jsonUsuarios);
+    }
+
+    // Listando usuarios 
     // obtendo conteudo do arquivo usuarios.json
     $usuarios = file_get_contents('./data/usuarios.json');
 
@@ -18,7 +47,7 @@
 <?php require_once("./inc/header.php"); ?>
     <main class="container">
         <article class="row">
-            <section class="col-12 mx-auto bg-light my-5 py-5 rounded border" id="usuariosTb">
+            <section class="col-12 mx-auto bg-light my-3 py-3 rounded border" id="usuariosTb">
                 <h3 class="col-12 text-center my-3"><?= $tituloPagina ?></h3>
                 <table class="table my-5">
                     <thead class="thead-dark">
@@ -62,7 +91,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                    <a href="index.php?id=<?= $usuario["id"] ?>">
+                                                    <a href="usuarios.php?id=<?= $usuario["id"] ?>">
                                                         <button type="button" class="btn btn-danger">Excluir</button>
                                                     </a>
                                                 </div>
@@ -75,6 +104,17 @@
                     </tbody>
                 </table>
             </section>
+            <div class="col-md-12">
+                <?php
+                    if(isset($_GET) && $_GET && $_GET["id"]){
+                        if($excluiu){
+                            echo '<div class="col-md-12 alert alert-success">Usuário excluído com sucesso</div>';
+                        } else {
+                            echo '<div class="col-md-12 alert alert-danger">Falha ao processar requisição</div>';
+                        }
+                    }
+                ?>
+            </div>
         </article>
     </main>
     <?php require_once("./inc/footer.php"); ?>
