@@ -12,4 +12,7 @@
     <!-- lembrando que este caminho ira funcionar porque vamos incluir este
     head nas paginas que estao na raiz do projeto  -->
     <link rel="stylesheet" href="assets/css/estilo.css">
+
+    <!-- Importando arquivo para aplicar efeitos no front-end -->
+    <script src="assets/js/main.js" defer></script>
 </head>
