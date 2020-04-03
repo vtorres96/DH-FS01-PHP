@@ -9,6 +9,10 @@
 
         // protegido: pois, somente a classe modelo e as classes filhas que herdam desta classe
         // modelo poderão utilizar esta propriedade ligado.
+
+        // publico => orelhao 
+        // protegido => telefone residencial
+        // privado => celular 
         protected $ligado;
 
         public function __construct(){
