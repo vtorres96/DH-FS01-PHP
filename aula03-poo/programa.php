@@ -41,4 +41,8 @@
     $tubarao->setForcaDaMordida(1000);
     echo "O tubarão tem a forca de mordida " . $tubarao->getForcaDaMordida() . "kg";
     echo "<br>";
+
+    $cachorro->setCor("Marrom");
+    echo "O cachorro tem a cor " . $cachorro->getCor();
+
 ?>
