@@ -14,7 +14,6 @@
         // privado => celular 
         protected $peso;
         protected $idade;
-        protected $cor;
         protected $tipoDeRespiracao;
 
         abstract function locomover();
