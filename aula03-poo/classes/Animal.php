@@ -18,6 +18,7 @@
         protected $tipoDeRespiracao;
 
         abstract function locomover();
+        abstract function emitirSom();
     }
 
 ?>

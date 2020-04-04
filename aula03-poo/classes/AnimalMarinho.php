@@ -21,11 +21,15 @@
             echo "Estou me locomovendo nadando dentro do mar";
         }
 
+        public function emitirSom(){
+            echo "Estou emitindo som de animal marinho";
+        }
+
         public function respirar(){
             if(!$this->tipoDeRespiracao == "dentro do mar"){
                 echo "Subiu para superfície do mar para respirar ar puro";
             } else {
-                echo "Esta respirando dentro do mar";
+                echo "Está respirando dentro do mar";
             }
         }
     }
