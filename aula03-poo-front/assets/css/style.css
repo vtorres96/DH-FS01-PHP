@@ -1,0 +1,112 @@
+/* Resets */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	scroll-behavior: smooth;
+}
+/* Estilo Body */
+body {
+	background-image: url('../img/bg.png');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	padding-bottom: 15px;
+}
+/* Estilo Header */
+header {
+	margin: 20px auto;
+}
+h1 {
+	text-align: center;
+	margin: 10px auto 20px auto;
+}
+section {
+	align-items: stretch;
+}
+article {
+	margin-bottom: 20px;
+}
+h3, h4 {
+	text-align: center;
+	margin: 0 auto 10px auto;
+}
+a, .fa-git-hub {
+	color: rgb(18,22,78);
+	transition: all 0.5s ease-in;
+}
+a:hover, .fa-git-hub:hover {
+	color: rgb(204,23,51);
+	filter: drop-shadow(1px 1px 1px rgba(145,20,90,1));
+}
+/* Estilo Main - Tags */
+ul {
+	list-style: none;
+}
+/* Estilo Main - Classes */
+.card {
+	background-color: lightgrey;
+	padding: 0px;
+	border-color: #cc1733;
+}
+.card-img-top {
+	margin-bottom: 10px;
+}
+.card-header{
+	background-color: #12164e;
+}
+.card-header p {
+	line-height: 24px;
+	color: #fff;
+	font-weight: bolder;
+	margin-bottom: 0px;
+}
+/* Estilo Barra de Rolagem */
+body::-webkit-scrollbar {
+    width: 0.66em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: rgba(230,214,224,0.2);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(204,23,51,1);
+  -webkit-box-shadow: inset 0 0 2px rgba(255,255,255,1);
+  border-radius: 5px;
+}
+/* Animação do Logo no Topo */
+#logo3D {
+	-webkit-perspective: 400px;
+	perspective: 400px;
+}
+#cube {
+	display: block;
+	position: relative;
+	margin: 10px auto;
+	height: 60px;
+	width: 60px;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: rotateX(0) rotateY(0) rotateZ(0);
+	transform-style: preserve-3d;
+	transform: rotateX(0) rotateY(0) rotateZ(0);
+	animation: giroTresD 4s infinite linear;
+}
+#logoDH {
+	position: absolute;
+	height: 60px;
+	width: 60px;
+	-webkit-backface-visibility: visible;
+	-webkit-transform: rotateY(180deg) translateX(15px);
+	backface-visibility: visible;
+	transform: rotateY(180deg) translateX(15px);
+}
+@keyframes giroTresD {
+	0% {
+		transform: rotateY(0);
+	}
+	100% {
+		transform: rotateY(360deg);
+	}
+}
