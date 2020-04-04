@@ -1,7 +1,6 @@
 <?php
 
     require_once("./classes/retangulo.php");
-
     
     if(isset($_POST) && $_POST){
       $base = $_POST["base"];

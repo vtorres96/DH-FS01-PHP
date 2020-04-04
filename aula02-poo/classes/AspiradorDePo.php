@@ -9,7 +9,7 @@
         // privado => celular 
 
         // privado: pois, somente esta classe ira utilizar a propriedade, ou seja, somente
-         // teremos condição de alterar a propriedade nos métodos dentro da classe PenDrive.
+        // teremos condição de alterar a propriedade nos métodos dentro da classe PenDrive.
         private $filtro;
 
         public function __construct(){
