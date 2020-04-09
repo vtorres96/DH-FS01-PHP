@@ -12,9 +12,12 @@
         // publico => orelhao 
         // protegido => telefone residencial
         // privado => celular 
-        protected $peso;
-        protected $idade;
-        protected $tipoDeRespiracao;
+        // protected $peso;
+        // protected $idade;
+        // protected $tipoDeRespiracao;
+        abstract function alimentar(){
+            echo "Estou me alimentando";
+        }
 
         abstract function locomover();
         abstract function emitirSom();

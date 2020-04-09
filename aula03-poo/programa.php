@@ -23,6 +23,9 @@
     $tubarao->locomover();
     echo "<br>";
 
+    $tubarao->alimentar();
+    echo "<hr>";
+
     $tubarao->emitirSom();
     echo "<hr>";
 
@@ -33,6 +36,9 @@
 
     $cachorro->emitirSom();
     echo "<br>";
+
+    $cachorro->alimentar();
+    echo "<hr>";
 
     $cachorro->roerOsso();
     echo "<hr>";
