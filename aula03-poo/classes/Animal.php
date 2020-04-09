@@ -12,10 +12,11 @@
         // publico => orelhao 
         // protegido => telefone residencial
         // privado => celular 
-        // protected $peso;
-        // protected $idade;
-        // protected $tipoDeRespiracao;
-        abstract function alimentar(){
+        protected $peso;
+        protected $idade;
+        protected $tipoDeRespiracao;
+        
+        function alimentar(){
             echo "Estou me alimentando";
         }
 

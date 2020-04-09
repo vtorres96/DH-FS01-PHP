@@ -24,7 +24,7 @@
     echo "<br>";
 
     $tubarao->alimentar();
-    echo "<hr>";
+    echo "<br>";
 
     $tubarao->emitirSom();
     echo "<hr>";
@@ -38,7 +38,7 @@
     echo "<br>";
 
     $cachorro->alimentar();
-    echo "<hr>";
+    echo "<br>";
 
     $cachorro->roerOsso();
     echo "<hr>";
