@@ -57,20 +57,50 @@
                     echo "Você está no volume máximo, cuidado com os tímpanos.";
                 }
             } else {
-                echo "Impossível aumentar volume, aparelho desligado";
+                echo "Impossível aumentar volume, aparelho de TV desligado";
             }
         }
 
         function diminuirVolume(){
-            // echo "estou diminuindo o volume";
+            $volumeMinimo = 0;
+
+            if($this->getLigado()){
+                if($this->getVolume() > $volumeMinimo){
+                    $this->setVolume($this->getVolume() - 1);
+
+                    if($this->getVolume() != 0){
+                        echo "Volume diminuído, volume atual : " . $this->getVolume();
+                    } 
+                } else {
+                    echo "Você deixou o aparelho de TV no mute";
+                }
+            } else {
+                echo "Impossível diminuir volume, aparelho de TV desligado";
+            }
         }
 
         function ativarMute(){
-            // echo "estou ativando o mute";
+            if($this->getLigado()){
+                if($this->getVolume() > 0){
+                    $this->setVolume(0);
+                    echo "O mute foi ativado " . $this->getVolume();
+                } else {
+                    echo "O mute já está ativado";
+                }
+            } else {
+                echo "Impossível ativar mute, aparelho de TV desligado";
+            }
         }
 
         function desativarMute(){
-            // echo "estou desativando o mute";
+            if($this->getLigado()){
+                if($this->getVolume() == 0){
+                    $this->setVolume(2);
+                    echo "O mute foi desativado, volume atual : " . $this->getVolume();
+                }
+            } else {
+                echo "Impossível desativar mute, aparelho de TV desligado";
+            }
         }
         
         

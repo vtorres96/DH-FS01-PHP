@@ -10,14 +10,15 @@
     $controleRemoto->aumentarVolume();
     echo "<br>";
 
-    $controleRemoto->aumentarVolume();
-    echo "<br>";
+    $controleRemoto->setVolume(3);
 
     $controleRemoto->aumentarVolume();
     echo "<br>";
 
-    $controleRemoto->aumentarVolume();
+    $controleRemoto->diminuirVolume();
     echo "<br>";
+
+    $controleRemoto->setVolume(0);
 
     $controleRemoto->diminuirVolume();
     echo "<br>";
