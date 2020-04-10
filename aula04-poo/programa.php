@@ -5,12 +5,29 @@
     $controleRemoto = new ControleRemoto();
 
     $controleRemoto->ligar();
-    $controleRemoto->desligar();
+    echo "<br>";
 
     $controleRemoto->aumentarVolume();
+    echo "<br>";
+
+    $controleRemoto->aumentarVolume();
+    echo "<br>";
+
+    $controleRemoto->aumentarVolume();
+    echo "<br>";
+
+    $controleRemoto->aumentarVolume();
+    echo "<br>";
+
     $controleRemoto->diminuirVolume();
+    echo "<br>";
 
     $controleRemoto->ativarMute();
-    $controleRemoto->desativarMute();
+    echo "<br>";
 
+    $controleRemoto->desativarMute();
+    echo "<br>";
+
+    $controleRemoto->desligar();
+    echo "<br>";
 ?>

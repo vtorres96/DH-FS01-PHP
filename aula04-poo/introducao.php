@@ -44,5 +44,12 @@ Classe Abstrata
     - É usada apenas para servir de modelo para outras classes, ou seja apenas, ser herdada, funciona como uma super classe.
 
 Quando estamos trabalhando com Classe Abstrata temos a liberdade de definir se um método será abstrato ou não, portanto, os métodos
-que não forem abstract podem ter corpo / instruções.
-Já, quando estamos utilizando uma interface o método já tem implicito que será abstrato portanto, não poderá ter corpo / instruções nunca.
+que não forem abstract podem ter corpo / instruções. E também devemos lembrar que em uma classe abstrata a gente pode implementar o método
+que não é abstrato se quisermos, ou seja, se torna uma opção alterar o método que foi criado na super classe.
+
+Já, quando estamos utilizando uma interface o método já tem implicito que será abstrato e público, portanto, não poderá ter corpo / instruções nunca.
+Mas, terá que ser implementado de forma obrigatória em toda classe que implementar aquela interface, ou, como dizemos, toda classe que assinar um contrato com aquela interface.
+
+
+1 - classe abstrata pode ter metodos abstratos ou comuns já a interface terá sempre metodos abstratos
+2 - todos métodos da interface serão sem corpo / instruções devido serem abstratos de forma implícita.
