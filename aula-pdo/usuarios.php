@@ -1,5 +1,7 @@
 <?php
 
+    require_once("./config/conexao.php");
+
     session_start();
 
     // verificando sessao para exibir a pagina apenas aos usuarios logados
@@ -9,38 +11,18 @@
 
     // Excluindo usuario especifico
     if (isset($_GET) && $_GET && $_GET["id"]) {
+        $query = $db->prepare("delete from usuarios where id = :id");
 
-        // recebendo as informacoes enviadas atraves do formulario 
-        $id = $_GET["id"];
-
-        // obtendo conteudo do arquivo usuarios.json
-        $usuarios = file_get_contents('./data/usuarios.json');
-
-        // transformando o conteudo do arquivo usuarios.json em um array
-        $arrayUsuarios = json_decode($usuarios, true);
-    
-        // Percorrendo o array que contem a lista de usuarios
-        foreach ($arrayUsuarios["usuarios"] as $chave => $usuario) {
-
-            // verificando se encontramos o usuario apra fazer as alteracoes
-            if($usuario["id"] == $id){
-                unset($arrayUsuarios["usuarios"][$chave]);
-            }
-        }
-
-        // transformando o conteudo em uma string json
-        $jsonUsuarios = json_encode($arrayUsuarios);
-
-        // escrevendo conteudo no arquivo usuarios.json
-        $excluiu = file_put_contents('./data/usuarios.json', $jsonUsuarios);
+        $excluiu = $query->execute([
+            ":id" => $_GET["id"]
+        ]);
     }
 
     // Listando usuarios 
-    // obtendo conteudo do arquivo usuarios.json
-    $usuarios = file_get_contents('./data/usuarios.json');
+    $query = $db->prepare("select * from usuarios");
+    $query->execute();
 
-    // transformando o conteudo do arquivo usuarios.json em um array
-    $arrayUsuarios = json_decode($usuarios, true);
+    $arrayUsuarios = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php $tituloPagina = "Lista de Usuários"; ?>
 <?php require_once("./inc/head.php"); ?>
@@ -61,7 +43,7 @@
                     </thead>
                     <tbody>
                         <!-- Percorrendo o array que contem a lista de usuarios -->
-                        <?php foreach ($arrayUsuarios["usuarios"] as $usuario){ ?>
+                        <?php foreach ($arrayUsuarios as $usuario){ ?>
                             <tr>
                                 <th scope="row"><?php echo $usuario["id"]; ?></th>
                                 <td><?php echo $usuario["nome"] ?></td>

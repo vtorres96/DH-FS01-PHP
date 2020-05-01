@@ -10,6 +10,14 @@
         $email = $_POST["email"];
         $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
 
+        $query = $db->prepare("insert into usuarios (nome, sobrenome, email, senha) values (:nome, :sobrenome, :email, :senha)");
+
+        $cadastrou = $query->execute([
+            ":nome" => $nome,
+            ":sobrenome" => $sobrenome,
+            ":email" => $email,
+            ":senha" => $senha
+        ]);
     }
 ?>
 

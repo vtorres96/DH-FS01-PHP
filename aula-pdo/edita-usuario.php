@@ -1,25 +1,17 @@
 <?php
 
+    require_once("./config/conexao.php");
+
     // seleciona o usuario
     if (isset($_GET) && $_GET && $_GET["id"]) {
 
-        // obtendo conteudo do arquivo usuarios.json
-        $usuarios = file_get_contents('./data/usuarios.json');
+        $query = $db->prepare("select * from usuarios where id = :id");
 
-        // transformando o conteudo do arquivo usuarios.json em um array
-        $arrayUsuarios = json_decode($usuarios, true);
+        $query->execute([
+            ":id" => $_GET["id"]
+        ]);
 
-        $usuarioEncontrado = [];
-        
-        // Percorrendo o array que contem a lista de usuarios
-        foreach ($arrayUsuarios["usuarios"] as $usuario) {
-        
-            if($usuario["id"] == $_GET["id"]){
-                array_push($usuarioEncontrado, $usuario);
-            }
-            
-        }
-
+        $usuario = $query->fetch(PDO::FETCH_ASSOC);
     }
 
     if(isset($_POST) && $_POST){
@@ -29,40 +21,17 @@
         $nome = $_POST["nome"];
         $sobrenome = $_POST["sobrenome"];
         $email = $_POST["email"];
-        $senha = $_POST["senha"];
+        $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
 
-        // obtendo conteudo do arquivo usuarios.json
-        $usuarios = file_get_contents('./data/usuarios.json');
+        $query = $db->prepare("update usuarios set nome = :nome, sobrenome = :sobrenome, email = :email, senha = :senha where id = :id");
 
-        // transformando o conteudo do arquivo usuarios.json em um array
-        $arrayUsuarios = json_decode($usuarios, true);
-    
-        // Percorrendo o array que contem a lista de usuarios
-        foreach ($arrayUsuarios["usuarios"] as $chave => $usuario) {
-
-            // verificando se encontramos o usuario apra fazer as alteracoes
-            if($usuario["id"] == $id){
-                
-                $arrayUsuarios["usuarios"][$chave]["nome"] = $nome;
-                $arrayUsuarios["usuarios"][$chave]["sobrenome"] = $sobrenome;
-                $arrayUsuarios["usuarios"][$chave]["email"] = $email;
-
-                // se o usuario nao enviar nada nao iremos alterar a senha
-                // se o usuario enviar algo criptografamos a senha e efetuamos a alteracao
-                if($senha != ""){
-                    $arrayUsuarios["usuarios"][$chave]["senha"] = password_hash($senha, PASSWORD_DEFAULT);
-                }
-
-            }
-            
-        }
-
-        // transformando o conteudo em uma string json
-        $jsonUsuarios = json_encode($arrayUsuarios);
-
-        // escrevendo conteudo no arquivo usuarios.json
-        $alterou = file_put_contents('./data/usuarios.json', $jsonUsuarios);
-        
+        $alterou = $query->execute([
+            ":id" => $id,
+            ":nome" => $nome,
+            ":sobrenome" => $sobrenome,
+            ":email" => $email,
+            ":senha" => $senha
+        ]);
     }
     
 ?>
@@ -76,7 +45,7 @@
             <h3 class="col-12 text-center my-3"><?= $tituloPagina ?></h3>
                 <form action="edita-usuario.php" method="post">
                     <input type="hidden" class="form-control" id="id" name="id" 
-                    value="<?= isset($_GET["id"]) ? $_GET["id"] : $_POST["id"]  ?>" required>
+                    value="<?= isset($usuario) ? $usuario["id"] : "" ?>" required>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nome">Nome</label>
@@ -86,7 +55,7 @@
                                 e o usuario fez uma alteracao, portanto, iremos listar a informacao obtida atraves do envio do formulario
                                 para conseguir exibir o valor que o usuario altera no campo nome apos clicar no botao Editar
                             -->
-                            <input type="text" class="form-control" id="nome" name="nome" value="<?= isset($_GET["id"]) ? $usuarioEncontrado[0]["nome"] : $_POST["nome"] ?>" required>
+                            <input type="text" class="form-control" id="nome" name="nome" value="<?= isset($usuario) ? $usuario["nome"] : $_POST["nome"] ?>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="sobrenome">Sobrenome</label>
@@ -96,7 +65,7 @@
                                 e o usuario fez uma alteracao, portanto, iremos listar a informacao obtida atraves do envio do formulario
                                 para conseguir exibir o valor que o usuario altera no campo sobrenome apos clicar no botao Editar
                             -->
-                            <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="<?= isset($_GET["id"]) ? $usuarioEncontrado[0]["sobrenome"] : $_POST["sobrenome"] ?>" required>
+                            <input type="text" class="form-control" id="sobrenome" name="sobrenome" value="<?= isset($usuario) ? $usuario["sobrenome"] : $_POST["sobrenome"] ?>" required>
                         </div>
                     </div>
                     <div class="form-row">
@@ -108,7 +77,7 @@
                                 e o usuario fez uma alteracao, portanto, iremos listar a informacao obtida atraves do envio do formulario
                                 para conseguir exibir o valor que o usuario altera no campo email apos clicar no botao Editar
                             -->
-                            <input type="email" class="form-control" id="email" name="email" value="<?= isset($_GET["id"]) ? $usuarioEncontrado[0]["email"] : $_POST["email"] ?>" required>
+                            <input type="email" class="form-control" id="email" name="email" value="<?= isset($usuario) ? $usuario["email"] : $_POST["email"] ?>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="senha">Senha</label>                                             

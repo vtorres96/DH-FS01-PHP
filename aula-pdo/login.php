@@ -1,40 +1,39 @@
 <?php
+
+    require_once("./config/conexao.php");
+
     if(isset($_POST) && $_POST){
+
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-        $logado = false;
+        $query = $db->prepare("select * from usuarios where email = :email");
 
-        // obtendo conteudo do arquivo usuarios.json
-        $usuarios = file_get_contents('./data/usuarios.json');
+        $query->execute([
+            ":email" => $email
+        ]);
 
-        // transformando o conteudo do arquivo usuarios.json em um array
-        $arrayUsuarios = json_decode($usuarios, true);
+        $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
-        // Percorrendo o array que contem a lista de usuarios
-       foreach ($arrayUsuarios["usuarios"] as $usuario) {
-           
-           if($email == $usuario["email"]){
-               if(password_verify($senha, $usuario["senha"])){
+        if(!$usuario){
+            $logado = false;
+        } else {
+            if(password_verify($senha, $usuario["senha"])){
+                session_start();
 
-                    $logado = true;
+                $_SESSION["logado"] = true;
+                $_SESSION["id"] = $usuario["id"];
+                $_SESSION["nome"] = $usuario["nome"];
 
-                    // iniciando sessao caso usuario tenha informado usuario e senha corretos
-                    session_start();
-                    $_SESSION["logado"] = $logado;
-                    $_SESSION["id"] = $usuario["id"];
-                    $_SESSION["nome"] = $usuario["nome"];
-                    
-                    // redirecionando para a lista de usuarios
-                    header("Location: usuarios.php");
-                }
-           }
-           
+                header("Location: usuarios.php");
+            } else {
+                $logado = false;
+            }
         }
 
     }
 ?>
-<?php $tituloPagina = "Formluário de Login"; ?>
+<?php $tituloPagina = "Formulário de Login"; ?>
 <?php require_once("./inc/head.php"); ?>
 <?php require_once("./inc/header.php"); ?>
     <main class="container">
