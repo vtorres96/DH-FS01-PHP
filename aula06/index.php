@@ -2,47 +2,37 @@
 
     if(isset($_POST) && $_POST){
 
-        // recebendo as informacoes enviadas atraves do formulario 
+        // 1 - recebendo as informacoes enviadas atraves do formulario 
         $nome = $_POST["nome"];
         $sobrenome = $_POST["sobrenome"];
         $email = $_POST["email"];
         $senha = $_POST["senha"];
         
-        // pegando id do ultimo usuario para acrescentar mais 1 ao id do usuario novo que sera inserido
-       
-        // obtendo conteudo do arquivo usuarios.json
+        // 2 - obtendo conteudo do arquivo usuarios.json
         $usuarios = file_get_contents('./data/usuarios.json');
 
-        // transformando o conteudo do arquivo usuarios.json em um array
+        // 3 - transformando o conteudo do arquivo usuarios.json em um array
         $arrayUsuarios = json_decode($usuarios, true);
 
-        // pegando o usuario que esta na última posição do array
+        // 4 - obtendo usuario que esta na última posição do array
         $ultimoUsuario = end($arrayUsuarios["usuarios"]);
 
-        // pegando o id do ultimo usuario para incrementar no momento de inserir um novo usuario
-        $idUltimoUsuario = $ultimoUsuario["id"];
-
-
-        // criando array de novo usuario
+        // 5 - criando array de novo usuario
         $novoUsuario = [
-            "id" => $idUltimoUsuario + 1,
+            "id" => $ultimoUsuario["id"] + 1,
             "nome" => $nome,
             "sobrenome" => $sobrenome,
             "email" => $email,
             "senha" => password_hash($senha, PASSWORD_DEFAULT)
         ];
 
-        // obtendo conteudo do arquivo usuarios.json
-        $usuarios = file_get_contents('./data/usuarios.json');
-
-        // transformando o conteudo do arquivo usuarios.json em um array
-        $arrayUsuarios = json_decode($usuarios, true);
-
-        // adicionando novo usuario no array de usuarios
+        // 6 - adicionando novo usuario no array de usuarios
         array_push($arrayUsuarios["usuarios"], $novoUsuario);
         
+        // 7 - transformando o array associativo de usuarios apos ter recebido o novo usuario em uma string json
         $jsonUsuarios = json_encode($arrayUsuarios);
 
+        // 8 - sobrescrevendo o conteudo do arquivo usuarios.json
         $cadastrou = file_put_contents('./data/usuarios.json', $jsonUsuarios);
     }
 ?>
