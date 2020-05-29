@@ -10,7 +10,7 @@ class MoviesController extends Controller
 
     public function list(){
         // obtendo todos os filmes da tabela movies
-        // $movies = Movie::all();      // executa um select * from movies;
+        // $movies = Movie::all();
 
         // obtendo filmes com paginacao e ordenando por titulo de forma alfabetica (forma ASC)
         // lembrando que o orderBy recebe dois parametros, o primeiro a coluna que queremos ordernar,
@@ -24,35 +24,50 @@ class MoviesController extends Controller
 
     public function create(){
         // retornando a view que contem o formulario para adicionar um filme
-       var_dump("Oi");die;
-        // return view('movies.create');
+        return view('movies.create');
     }
 
     public function save(Request $request){
 
-        var_dump("oi");die;
         // validando campos
         $request->validate([
             "title" => "required|min:3",
-            "synopsis" => "required|min:10"
+            "synopsis" => "required|min:10",
         ]);
 
         $arquivo = $request->file('cover_image');
 
-        $arquivo->storePublicly('uploads');
-
+        if(empty($arquivo)){
+            $caminhoRelativo = null;
+        } else {
+            // criar pasta uploads
+            $arquivo->storePublicly('uploads');
+    
+            // criar caminho ate a pasta onde desejamos armazenar os uploads
+            $caminhoAbsoluto = public_path()."/storage/uploads";
+    
+            // obtendo nome original do arquivo
+            $nomeArquivo = $arquivo->getClientOriginalName();
+            
+            // caminho passado para o banco de dados encontrar o arquivo relativo ao registro
+            $caminhoRelativo = "storage/uploads/$nomeArquivo";
+            
+            // mover o arquivo para a pasta uploads e finalizar o upload
+            $arquivo->move($caminhoAbsoluto, $nomeArquivo); 
+        }
+        
         // criando objeto para enviar ao banco de dados
         $movie = Movie::create([
             "title" => $request->input('title'),
             "synopsis" => $request->input('synopsis'),
-            "cover_image" => $request->input('cover_image')
+            "cover_image" => $caminhoRelativo
         ]);
 
         // salvando registro no banco de dados
         $movie->save();
 
         // redirecionando para a rota de adicionar filme
-        return redirect('/filmes/adicionar');
+        return view('movies.create')->with('success', 'Filme inserido com sucesso');
     }
 
     public function edit($id){
@@ -71,17 +86,37 @@ class MoviesController extends Controller
         $request->validate([
             "title" => "required|min:3",
             "synopsis" => "required|min:10",
-            "cover_image" => "required"
         ]);
+
+        $arquivo = $request->file('cover_image');
+
+        if(empty($arquivo)){
+            $caminhoRelativo = null;
+        } else {
+            // criar pasta uploads
+            $arquivo->storePublicly('uploads');
+    
+            // criar caminho ate a pasta onde desejamos armazenar os uploads
+            $caminhoAbsoluto = public_path()."/storage/uploads";
+    
+            // obtendo nome original do arquivo
+            $nomeArquivo = $arquivo->getClientOriginalName();
+            
+            // caminho passado para o banco de dados encontrar o arquivo relativo ao registro
+            $caminhoRelativo = "storage/uploads/$nomeArquivo";
+            
+            // mover o arquivo para a pasta uploads e finalizar o upload
+            $arquivo->move($caminhoAbsoluto, $nomeArquivo); 
+        }
 
         $movie->update([
             "title" => $request->input('title'),
             "synopsis" => $request->input('synopsis'),
-            "cover_image" => $request->input('cover_image')
+            "cover_image" => $caminhoRelativo
         ]);
 
         // redirecionando para a rota de lista de usuarios
-        return redirect("/filmes/listar");
+        return view("movies.edit")->with(['movie' => $movie, 'success' =>'Filme alterado com sucesso']);
     }
 
     public function delete($id){
